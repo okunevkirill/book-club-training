@@ -8,8 +8,8 @@ from chapter_04 import fetch_status
 async def main():
     async with aiohttp.ClientSession() as session:
         fetchers = [
-            fetch_status(session, "https://www.google.ru/"),
-            fetch_status(session, "https://www.google.ru/"),
+            asyncio.create_task(fetch_status(session, "https://www.google.ru/")),
+            asyncio.create_task(fetch_status(session, "https://www.google.ru/")),
         ]
         done, pending = await asyncio.wait(fetchers)
 

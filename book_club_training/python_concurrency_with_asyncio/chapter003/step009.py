@@ -10,9 +10,9 @@ async def echo(connection: socket, loop: AbstractEventLoop) -> None:
     try:
         while data := await loop.sock_recv(connection, 1024):
             print("got data!")
-        if data == b"boom\r\n":
-            raise Exception("Неожиданная ошибка сети")
-        await loop.sock_sendall(connection, data)
+            if data == b"boom\r\n":
+                raise Exception("Неожиданная ошибка сети")
+            await loop.sock_sendall(connection, data)
     except Exception as ex:
         logging.exception(ex)
     finally:

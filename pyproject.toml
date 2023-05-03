@@ -20,6 +20,7 @@ uvicorn = "^0.22.0"
 starlette = "^0.26.1"
 websockets = "^11.0.2"
 django = "^4.2"
+beautifulsoup4 = "^4.12.2"
 
 
 [tool.poetry.group.dev.dependencies]

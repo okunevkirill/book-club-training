@@ -6,4 +6,5 @@
 ## Список книг
 
 1. Python Concurrency with Asyncio [Matthew Fowler] ("Asyncio и конкурентное программирование на Python")
+2. Test-Driven Development with Python [Harry J.W. Percival] ("Python. Разработка на основе тестирования")
 

@@ -1,4 +1,4 @@
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -8,7 +8,7 @@ import time
 MAX_WAIT = 10
 
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
     """Тест нового посетителя"""
 
     def setUp(self):
@@ -121,11 +121,17 @@ class NewVisitorTest(LiveServerTestCase):
         # Эдит открывает домашнюю страницу
         self.browser.get(self.live_server_url)
         self.browser.set_window_size(1024, 768)
+        canvas_x_offset = self.browser.execute_script(
+            "return window.screenX + (window.outerWidth - "
+            "window.innerWidth) / 2 - window.scrollX;"
+        )
 
         # Она замечает, что поле ввода аккуратно центрировано
         input_box = self.browser.find_element(By.ID, "id_new_item")
         self.assertAlmostEqual(
-            input_box.location["x"] + input_box.size["width"] / 2, 512, delta=25
+            input_box.location["x"] + canvas_x_offset + input_box.size["width"] / 2,
+            512,
+            delta=10,
         )
 
         # Она начинает новый список и видит, что поле ввода там тоже
@@ -135,5 +141,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.wait_for_row_in_list_table("1: testing")
         input_box = self.browser.find_element(By.ID, "id_new_item")
         self.assertAlmostEqual(
-            input_box.location["x"] + input_box.size["width"] / 2, 512, delta=10
+            input_box.location["x"] + canvas_x_offset + input_box.size["width"] / 2,
+            512,
+            delta=10,
         )

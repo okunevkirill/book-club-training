@@ -1,0 +1,9 @@
+[Unit]
+Description=Gunicorn server for tdd-book
+[Service]
+Restart=on-failure
+User=kira
+WorkingDirectory=/home/kira/sites/SITENAME/source
+ExecStart=/home/kira/sites/SITENAME/virtualenv/bin/gunicorn --bind 0.0.0.0:8000 superlists.wsgi:application
+[Install]
+WantedBy=multi-user.target
